@@ -8,8 +8,7 @@ import connectDb from "./databases/db.js"
 dotenv.config()
 
 const app = express()
-app.use(express.json())//FOR REQUSET.BODY JSON ACCEPT KARNE KE LIYE
-
+app.use(express.json())
 
 const __dirname = path.resolve()
 

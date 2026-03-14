@@ -1,8 +1,12 @@
 import { User } from "../models/user.model.js"
 import bcrypt from "bcryptjs"
 import { generateToken } from "../utils/token.utils.js"
+import { sendWelcomeEmail } from "../email/emailHandler.js"
+import "dotenv/config"
 
 export const signup = async (req, res) => {
+
+
 
     try {
         const { fullName, email, password } = req.body
@@ -63,6 +67,15 @@ export const signup = async (req, res) => {
                     proifle: newUser.profilePhoto
                 }
             })
+
+
+            try {
+                console.log("try hua kya hai ")
+                console.log(process.env.CLIENT_URL)
+                await sendWelcomeEmail(newUser.email, newUser.fullName, process.env.CLIENT_URL)
+            } catch (error) {
+                console.log("emial sent errro")
+            }
         }
         else {
             res.status(400).json({
